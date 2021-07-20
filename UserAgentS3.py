@@ -9,8 +9,8 @@ session_config = botocore.config.Config(
   user_agent_extra='gkolla-ua-test-append'
 )
 
-BUCKET_NAME = 'gkolla-user-agent-testing'
-PREFIX = 'python/'
+BUCKET_NAME = '<YOUR_BUCKET_NAME>'
+PREFIX = '<FOLDER_PATH>/'
 
 s3 = client(
   's3',
@@ -21,5 +21,5 @@ s3 = client(
 response = s3.put_object(
   Bucket=BUCKET_NAME,
   Body=b'just some sample text to upload to s3',
-  Key=PREFIX+'test1.txt'
+  Key=PREFIX+'test.txt'
 )
