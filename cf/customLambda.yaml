@@ -1,0 +1,10 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  EC2UserAgent:
+    Type: "Custom::EC2API"
+    Properties:
+      ServiceToken: "<ARN_OF_YOUR_LAMBDA_FUNCTION>"
+      instId : '<INSTANCE_ID_OF_EC2>'
+Outputs:
+  InstType:
+    Value: !GetAtt EC2UserAgent.instTyp
