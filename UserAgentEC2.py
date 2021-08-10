@@ -11,6 +11,7 @@ session_config = botocore.config.Config(
 
 ec2 = client(
   'ec2',
+  region_name='us-east-1',
   config=session_config
 )
 
