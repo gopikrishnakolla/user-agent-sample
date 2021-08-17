@@ -13,12 +13,17 @@ def ec2_set_useragent(event, _):
     ec2 = client(
         'ec2',
         config=session_config
+    )   
+
+    instances = ec2.run_instances(
+     ImageId=event['ResourceProperties']['ImageId'],     
+     MinCount=1,
+     MaxCount=1,
+     InstanceType=event['ResourceProperties']['InstanceType'],
+     KeyName=event['ResourceProperties']['KeyPair']
     )
-    response = ec2.describe_instance_attribute(
-        Attribute='instanceType',
-        InstanceId=event['ResourceProperties']['instId']
-    )    
-    helper.Data['instTyp'] = response['InstanceType']['Value']
+
+    helper.Data['InstId'] = instances["Instances"][0]["InstanceId"]
 @helper.delete
 def no_op(_, __):
     pass

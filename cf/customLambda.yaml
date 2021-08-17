@@ -1,10 +1,37 @@
 AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+  ImageIdParameter:
+    Type: String
+    Default: ami-0dc2d3e4c0f9ebd18    
+    Description: Enter an AMI ImageId from the region you want your EC2 provisioned.
+  LambdaARNParameter:
+    Type: String      
+    Description: Enter ARN of your lambda function that would be invoked as a custom resource from CloudFormation.
+  KeyPairParameter:
+    Type: String      
+    Description: Enter the name of the Key Pair (in your account), make sure you have the private key file.    
+
 Resources:
   EC2UserAgent:
     Type: "Custom::EC2API"
     Properties:
-      ServiceToken: "<ARN_OF_YOUR_LAMBDA_FUNCTION>"
-      instId : '<INSTANCE_ID_OF_EC2>'
+      ServiceToken: 
+        Ref: LambdaARNParameter  
+      InstanceType:
+        Ref: InstanceTypeParameter
+      ImageId:
+        Ref: ImageIdParameter
+      KeyPair:
+        Ref: KeyPairParameter  
 Outputs:
-  InstType:
-    Value: !GetAtt EC2UserAgent.instTyp
+  InstId:
+    Value: !GetAtt EC2UserAgent.InstId
