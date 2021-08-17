@@ -17,8 +17,8 @@ Parameters:
     Type: String      
     Description: Enter ARN of your lambda function that would be invoked as a custom resource from CloudFormation.
   KeyPairParameter:
-    Type: String      
-    Description: Enter the name of the Key Pair (in your account), make sure you have the private key file.    
+    Type: AWS::EC2::KeyPair::KeyName      
+    Description: Select the name of the Key Pair (in your account), make sure you have the private key file.    
 
 Resources:
   EC2UserAgent:
